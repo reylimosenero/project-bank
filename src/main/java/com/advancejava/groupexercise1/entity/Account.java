@@ -25,7 +25,7 @@ public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JsonIgnore
+
     private String type;
 
     @NotNull
