@@ -1,13 +1,17 @@
 package com.advancejava.groupexercise1.controller;
 
 import com.advancejava.groupexercise1.entity.Account;
-import com.advancejava.groupexercise1.model.Deposit;
+import com.advancejava.groupexercise1.helper.model.Deposit;
 import com.advancejava.groupexercise1.service.BankServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class BankController {
@@ -16,9 +20,9 @@ public class BankController {
     private BankServiceImpl bankService;
 
     @PostMapping("/accounts")
-    public List<Account> createAccount(@RequestBody Account acct){
+    public Account createAccount(@RequestBody Account acct){
         bankService.createAccount(acct);
-        return bankService.getAccounts();
+        return acct;
     }
 
     @PostMapping("/accounts/{id}/transactions")
@@ -33,7 +37,14 @@ public class BankController {
     public Account getAccount(@PathVariable Integer id){ return bankService.getAccount(id); }
 
     @GetMapping("/accounts")
-    public List<Account> getAccounts(){ return bankService.getAccounts(); }
+    public Page<Account> getAccounts(@PageableDefault(page = 0, size = 10)
+                                         @SortDefault.SortDefaults({
+                                                 @SortDefault(sort = "name",
+                                                         direction = Sort.Direction.ASC)
+                                         })
+                                                 Pageable pageable){
+        return bankService.getAccounts(pageable);
+    }
 
 //    @PutMapping("/accounts")
 //    public Account updateAccount(Account acct){ return bankService.updateAccount(acct); }

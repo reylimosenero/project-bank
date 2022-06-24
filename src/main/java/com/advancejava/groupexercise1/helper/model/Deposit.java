@@ -1,4 +1,4 @@
-package com.advancejava.groupexercise1.model;
+package com.advancejava.groupexercise1.helper.model;
 
 import java.util.Random;
 

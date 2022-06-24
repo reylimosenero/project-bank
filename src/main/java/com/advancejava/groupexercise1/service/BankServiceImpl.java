@@ -3,14 +3,14 @@ package com.advancejava.groupexercise1.service;
 import com.advancejava.groupexercise1.entity.Account;
 import com.advancejava.groupexercise1.helper.CheckAccountType;
 import com.advancejava.groupexercise1.helper.CheckBalance;
-import com.advancejava.groupexercise1.model.Deposit;
+import com.advancejava.groupexercise1.helper.model.Deposit;
 import com.advancejava.groupexercise1.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class BankServiceImpl implements BankService{
@@ -35,8 +35,9 @@ public class BankServiceImpl implements BankService{
 
     }
 
-    public List<Account> getAccounts(){
-        return accountRepository.findAll();
+    public Page<Account> getAccounts(Pageable pageable){
+
+        return accountRepository.findAll(pageable);
     }
 
     @Override
