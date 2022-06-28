@@ -46,7 +46,7 @@ public class BankServiceImpl implements BankService{
     }
 
     @Override
-    public Account updateAccount(Deposit dep,int id) {
+    public Account depositAccount(Deposit dep, int id) {
         Account acct;
         //get Account data by Id
             acct = accountRepository.findById(id).get();
@@ -77,5 +77,19 @@ public class BankServiceImpl implements BankService{
 
     }
 
+    public Account deleteAccount(Integer id) {
+        Account account = getAccount(id);
+        accountRepository.delete(account);
 
+        return account;
+    }
+
+
+    @Override
+    public Account updateAccount(Account acct) {
+        Account retrievedAccount = getAccount(acct.getId());
+        retrievedAccount.setName(acct.getName());
+
+        return accountRepository.save(retrievedAccount);
+    }
 }

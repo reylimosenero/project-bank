@@ -10,6 +10,8 @@ public interface BankService {
     public Account getAccount(Integer id);
     public Page<Account> getAccounts(Pageable pageable);
     public Account createAccount(Account acct);
-   // public Account updateAccount(Account acct);
-    public Account updateAccount(Deposit dep, int id);
+    public Account updateAccount(Account acct);
+    public Account depositAccount(Deposit dep, int id);
+
+    public Account deleteAccount(Integer id);
 }
