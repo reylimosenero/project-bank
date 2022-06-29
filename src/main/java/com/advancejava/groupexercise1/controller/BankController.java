@@ -29,7 +29,7 @@ public class BankController {
     public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id){
         System.out.println(deposit.getAmount());
 
-        bankService.updateAccount(deposit,id);
+        bankService.depositAccount(deposit,id);
         return bankService.getAccount(id);
     }
 
@@ -46,7 +46,13 @@ public class BankController {
         return bankService.getAccounts(pageable);
     }
 
-//    @PutMapping("/accounts")
-//    public Account updateAccount(Account acct){ return bankService.updateAccount(acct); }
+    @PutMapping("/accounts")
+    public Account updateAccount(@RequestBody Account acct){ return bankService.updateAccount(acct); }
+
+    @DeleteMapping("/accounts/{id}")
+    public Account deleteAccount(@PathVariable Integer id){
+
+        return bankService.deleteAccount(id);
+    }
 
 }
