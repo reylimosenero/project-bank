@@ -34,7 +34,16 @@ public class BankController {
     }
 
     @GetMapping("/accounts/{id}")
-    public Account getAccount(@PathVariable Integer id){ return bankService.getAccount(id); }
+    public Account getAccount(@PathVariable Integer id){ 
+    	
+    	return bankService.getAccount(id);
+    }
+    
+    @GetMapping("/accounts/number/{accctNumber}")
+    public Account getAccountByAccountNumber(@PathVariable Integer accctNumber){ 
+    	
+    	return bankService.getAccountByAccountNumber(accctNumber);
+    }
 
     @GetMapping("/accounts")
     public Page<Account> getAccounts(@PageableDefault(page = 0, size = 10)

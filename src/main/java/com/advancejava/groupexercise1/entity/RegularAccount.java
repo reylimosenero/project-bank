@@ -36,7 +36,7 @@ public class RegularAccount extends Account {
         Random random = new Random();
         //System.out.println();
         this.loan = 1000.00;//sample additional field specific for the child
-        this.setAcctNumber(String.valueOf(random.nextInt(1000000)));
+        this.setAcctNumber(random.nextInt(1000000));
         this.setBalance(500.00);
         this.setMinimumBalance(500.00);
         this.setPenalty(10.00);

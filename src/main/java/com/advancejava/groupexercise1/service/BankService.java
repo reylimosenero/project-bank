@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface BankService {
 
-    public Account getAccount(Integer id);
+    public Account getAccount(int acctNumber);
     public Page<Account> getAccounts(Pageable pageable);
     public Account createAccount(Account acct);
     public Account updateAccount(Account acct);

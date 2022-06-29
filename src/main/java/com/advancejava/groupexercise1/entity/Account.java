@@ -32,7 +32,7 @@ public abstract class Account {
     protected String name;
 
     @NotNull
-    protected String acctNumber;
+    protected int acctNumber;
 
     @NotNull
     protected Double balance;
@@ -53,7 +53,7 @@ public abstract class Account {
 
     }
 
-    public Account(String acctNumber, Double balance, Double minimumBalance, Double penalty, Double transactionCharge, Double interestCharge) {
+    public Account(int acctNumber, Double balance, Double minimumBalance, Double penalty, Double transactionCharge, Double interestCharge) {
         this.acctNumber = acctNumber;
         this.balance = balance;
         this.minimumBalance = minimumBalance;
@@ -86,11 +86,11 @@ public abstract class Account {
         this.name = name;
     }
 
-    public String getAcctNumber() {
+    public int getAcctNumber() {
         return acctNumber;
     }
 
-    public void setAcctNumber(String acctNumber) {
+    public void setAcctNumber(int acctNumber) {
         this.acctNumber = acctNumber;
     }
 
