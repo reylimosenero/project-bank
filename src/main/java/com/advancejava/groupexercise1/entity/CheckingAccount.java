@@ -19,7 +19,7 @@ public class CheckingAccount extends Account{
     public CheckingAccount() {
         Random random = new Random();
         //System.out.println();
-        this.setAcctNumber(String.valueOf(random.nextInt(1000000)));
+        this.setAcctNumber(random.nextInt(1000000));
         this.setBalance(100.00);
         this.setMinimumBalance(100.00);
         this.setPenalty(10.00);
