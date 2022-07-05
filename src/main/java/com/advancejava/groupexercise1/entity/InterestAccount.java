@@ -12,7 +12,7 @@ public class InterestAccount extends Account{
     public InterestAccount() {
         Random random = new Random();
         //System.out.println();
-        this.setAcctNumber(String.valueOf(random.nextInt(1000000)));
+        this.setAcctNumber(random.nextInt(1000000));
         this.setBalance(0.00);
         this.setMinimumBalance(0.00);
         this.setPenalty(0.00);

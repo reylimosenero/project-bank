@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface BankService {
 
-    public Account getAccount(Integer id) throws AccountNotFoundException;
+    public Account getAccount(Integer acctNumber) throws AccountNotFoundException;
     public Page<Account> getAccounts(Pageable pageable);
     public Account createAccount(Account acct);
     public Account updateAccount(Account acct) throws AccountNotFoundException;
