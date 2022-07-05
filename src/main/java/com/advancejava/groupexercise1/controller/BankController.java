@@ -1,6 +1,8 @@
 package com.advancejava.groupexercise1.controller;
 
 import com.advancejava.groupexercise1.entity.Account;
+import com.advancejava.groupexercise1.errorhandler.AccountNotFoundException;
+import com.advancejava.groupexercise1.errorhandler.InsuffientBalanceException;
 import com.advancejava.groupexercise1.helper.model.Deposit;
 import com.advancejava.groupexercise1.service.BankServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ public class BankController {
     }
 
     @PostMapping("/accounts/{id}/transactions")
-    public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id){
+    public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id)
+            throws AccountNotFoundException {
         System.out.println(deposit.getAmount());
 
         bankService.depositAccount(deposit,id);
@@ -34,14 +37,14 @@ public class BankController {
     }
 
     @GetMapping("/accounts/{id}")
-    public Account getAccount(@PathVariable Integer id){ 
-    	
+    public Account getAccount(@PathVariable Integer id) throws AccountNotFoundException{
+
     	return bankService.getAccount(id);
     }
-    
+
     @GetMapping("/accounts/number/{accctNumber}")
-    public Account getAccountByAccountNumber(@PathVariable Integer accctNumber){ 
-    	
+    public Account getAccountByAccountNumber(@PathVariable Integer accctNumber){
+
     	return bankService.getAccountByAccountNumber(accctNumber);
     }
 
@@ -56,11 +59,14 @@ public class BankController {
     }
 
     @PutMapping("/accounts")
-    public Account updateAccount(@RequestBody Account acct){ return bankService.updateAccount(acct); }
+    public Account updateAccount(@RequestBody Account acct)
+            throws AccountNotFoundException
+    { return bankService.updateAccount(acct); }
 
     @DeleteMapping("/accounts/{id}")
-    public Account deleteAccount(@PathVariable Integer id){
-
+    public Account deleteAccount(@PathVariable Integer id)
+            throws AccountNotFoundException
+    {
         return bankService.deleteAccount(id);
     }
 
