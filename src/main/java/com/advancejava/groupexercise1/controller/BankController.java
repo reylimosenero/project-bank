@@ -1,6 +1,7 @@
 package com.advancejava.groupexercise1.controller;
 
 import com.advancejava.groupexercise1.entity.Account;
+import com.advancejava.groupexercise1.errorhandler.AccountNotFoundException;
 import com.advancejava.groupexercise1.errorhandler.InsuffientBalanceException;
 import com.advancejava.groupexercise1.helper.model.Deposit;
 import com.advancejava.groupexercise1.service.BankServiceImpl;
@@ -28,7 +29,7 @@ public class BankController {
 
     @PostMapping("/accounts/{id}/transactions")
     public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id)
-            throws InsuffientBalanceException {
+            throws AccountNotFoundException {
         System.out.println(deposit.getAmount());
 
         bankService.depositAccount(deposit,id);
@@ -36,7 +37,9 @@ public class BankController {
     }
 
     @GetMapping("/accounts/{id}")
-    public Account getAccount(@PathVariable Integer id){ return bankService.getAccount(id); }
+    public Account getAccount(@PathVariable Integer id)
+            throws AccountNotFoundException
+    { return bankService.getAccount(id); }
 
     @GetMapping("/accounts")
     public Page<Account> getAccounts(@PageableDefault(page = 0, size = 10)
@@ -49,11 +52,14 @@ public class BankController {
     }
 
     @PutMapping("/accounts")
-    public Account updateAccount(@RequestBody Account acct){ return bankService.updateAccount(acct); }
+    public Account updateAccount(@RequestBody Account acct)
+            throws AccountNotFoundException
+    { return bankService.updateAccount(acct); }
 
     @DeleteMapping("/accounts/{id}")
-    public Account deleteAccount(@PathVariable Integer id){
-
+    public Account deleteAccount(@PathVariable Integer id)
+            throws AccountNotFoundException
+    {
         return bankService.deleteAccount(id);
     }
 

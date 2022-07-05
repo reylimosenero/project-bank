@@ -1,6 +1,7 @@
 package com.advancejava.groupexercise1.service;
 
 import com.advancejava.groupexercise1.entity.Account;
+import com.advancejava.groupexercise1.errorhandler.AccountNotFoundException;
 import com.advancejava.groupexercise1.errorhandler.InsuffientBalanceException;
 import com.advancejava.groupexercise1.helper.CheckAccountType;
 import com.advancejava.groupexercise1.helper.CheckBalance;
@@ -25,13 +26,11 @@ public class BankServiceImpl implements BankService{
     @Autowired
     CheckAccountType checkAccountType;
 
-    public Account getAccount(Integer id){
+    public Account getAccount(Integer id) throws AccountNotFoundException{
         if(accountRepository.findById(id).isPresent()){
             return accountRepository.findById(id).get();
         }else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
-            );
+            throw new AccountNotFoundException();
         }
 
     }
@@ -47,10 +46,10 @@ public class BankServiceImpl implements BankService{
     }
 
     @Override
-    public Account depositAccount(Deposit dep, int id) throws InsuffientBalanceException {
+    public Account depositAccount(Deposit dep, int id) throws AccountNotFoundException{
         Account acct;
         //get Account data by Id
-            acct = accountRepository.findById(id).get();
+            acct = getAccount(id);
             double amount = dep.getAmount();
 //TODO: do not accept negative and invalid numbers && invalid account type
 
@@ -78,7 +77,7 @@ public class BankServiceImpl implements BankService{
 
     }
 
-    public Account deleteAccount(Integer id) {
+    public Account deleteAccount(Integer id) throws AccountNotFoundException{
         Account account = getAccount(id);
         accountRepository.delete(account);
 
@@ -87,7 +86,7 @@ public class BankServiceImpl implements BankService{
 
 
     @Override
-    public Account updateAccount(Account acct) {
+    public Account updateAccount(Account acct) throws AccountNotFoundException {
         Account retrievedAccount = getAccount(acct.getId());
         retrievedAccount.setName(acct.getName());
 

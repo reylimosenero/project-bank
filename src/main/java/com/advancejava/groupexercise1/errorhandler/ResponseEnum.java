@@ -3,7 +3,9 @@ package com.advancejava.groupexercise1.errorhandler;
 public enum ResponseEnum {
 
     INSUFFIENT_BALANCE(ResponseCodes.INSUFFICIENT_AMOUNT
-            , "Insufficient Balance.");
+            , "Insufficient Balance."),
+    ACCOUNT_NOT_FOUND(ResponseCodes.ACCOUNT_NOT_FOUND
+            , "Account Not Found.");
 
     private String errorCode;
     private String errorMessage;
