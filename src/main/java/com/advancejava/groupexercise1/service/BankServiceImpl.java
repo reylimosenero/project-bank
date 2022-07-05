@@ -1,6 +1,7 @@
 package com.advancejava.groupexercise1.service;
 
 import com.advancejava.groupexercise1.entity.Account;
+import com.advancejava.groupexercise1.errorhandler.InsuffientBalanceException;
 import com.advancejava.groupexercise1.helper.CheckAccountType;
 import com.advancejava.groupexercise1.helper.CheckBalance;
 import com.advancejava.groupexercise1.helper.model.Deposit;
@@ -46,7 +47,7 @@ public class BankServiceImpl implements BankService{
     }
 
     @Override
-    public Account depositAccount(Deposit dep, int id) {
+    public Account depositAccount(Deposit dep, int id) throws InsuffientBalanceException {
         Account acct;
         //get Account data by Id
             acct = accountRepository.findById(id).get();

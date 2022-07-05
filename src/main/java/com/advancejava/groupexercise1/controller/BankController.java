@@ -1,6 +1,7 @@
 package com.advancejava.groupexercise1.controller;
 
 import com.advancejava.groupexercise1.entity.Account;
+import com.advancejava.groupexercise1.errorhandler.InsuffientBalanceException;
 import com.advancejava.groupexercise1.helper.model.Deposit;
 import com.advancejava.groupexercise1.service.BankServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class BankController {
     }
 
     @PostMapping("/accounts/{id}/transactions")
-    public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id){
+    public Account depositAccount(@RequestBody Deposit deposit, @PathVariable Integer id)
+            throws InsuffientBalanceException {
         System.out.println(deposit.getAmount());
 
         bankService.depositAccount(deposit,id);
