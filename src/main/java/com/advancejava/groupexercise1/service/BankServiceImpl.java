@@ -2,6 +2,7 @@ package com.advancejava.groupexercise1.service;
 
 import com.advancejava.groupexercise1.entity.Account;
 import com.advancejava.groupexercise1.errorhandler.AccountNotFoundException;
+import com.advancejava.groupexercise1.feign.ProducerFeign;
 import com.advancejava.groupexercise1.helper.CheckAccountType;
 import com.advancejava.groupexercise1.helper.CheckBalance;
 import com.advancejava.groupexercise1.helper.model.Deposit;
@@ -25,6 +26,9 @@ public class BankServiceImpl implements BankService {
 	@Autowired
 	CheckAccountType checkAccountType;
 
+	@Autowired
+	ProducerFeign producerFeign;
+
 	public Account getAccount(Integer id) throws AccountNotFoundException {
 
 		if (accountRepository.findById(id).isPresent()) {
@@ -35,8 +39,6 @@ public class BankServiceImpl implements BankService {
 	}
 
 	public Account getAccountByAccountNumber(int accNo) {
-
-
 		 Account accountNUmber = null;
 		 try {
 
@@ -48,9 +50,9 @@ public class BankServiceImpl implements BankService {
 		 if(accountNUmber != null){
 		 return accountRepository.findByAcctNumber(accNo);
 		 }else {
-		 throw new ResponseStatusException(
-		 HttpStatus.NOT_FOUND, "entity not found"
-		 );
+			 throw new ResponseStatusException(
+			 HttpStatus.NOT_FOUND, "entity not found"
+			 );
 		 }
 
 	}
@@ -62,7 +64,9 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public Account createAccount(Account acct) {
-		return accountRepository.save(acct);
+		Account savedAccount =  accountRepository.save(acct);
+		producerFeign.createAccount(savedAccount);
+		return savedAccount;
 	}
 
 	@Override
@@ -93,7 +97,9 @@ public class BankServiceImpl implements BankService {
 
 		// check deductible if below minimum for regular
 		acct.setBalance(checkBalance.isBelowMinimumBalance(acct));
-		return accountRepository.save(acct);
+		Account savedAccount =  accountRepository.save(acct);
+		producerFeign.deposit(dep, id);
+		return savedAccount;
 
 	}
 
