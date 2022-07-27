@@ -1,4 +1,4 @@
-package com.advancejava.groupexercise1.errorhandler;
+package com.ca.errorhandler;
 
 public enum ResponseEnum {
 

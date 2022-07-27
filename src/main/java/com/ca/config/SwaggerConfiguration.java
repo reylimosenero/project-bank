@@ -1,4 +1,4 @@
-package com.advancejava.groupexercise1.config;
+package com.ca.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
