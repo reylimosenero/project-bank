@@ -1,7 +1,7 @@
 package com.ca.controller;
 
-import com.ca.entity.BudgetRequest;
-import com.ca.service.BudgetRequestServiceImpl;
+import com.ca.entity.Projects;
+import com.ca.service.ProjectMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,32 +11,33 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
-public class BudgetRequestController {
+public class ProjectMonitorController {
 
     @Autowired
-    private BudgetRequestServiceImpl budgetRequestService;
+    private ProjectMonitorService projectMonitorService;
 
 
-    @GetMapping("/budgets")
-    public List<BudgetRequest> getBudgetRequest() {
+    @GetMapping("/projects")
+    public List<Projects> getAll() {
 
-        return budgetRequestService.getBudgetRequest();
+        return projectMonitorService.getProjects();
     }
 
-    @PostMapping("/budgets")
-    public BudgetRequest createBudgetRequest(@RequestBody BudgetRequest body){
-        return budgetRequestService.createBudgetRequest(body);
+    @PostMapping("/projects")
+    public Projects createProject(@RequestBody Projects body){
+        System.out.println("test");
+        return projectMonitorService.createProjects(body);
     }
 
-    @GetMapping("/budgets/{id}")
-    public Optional<BudgetRequest> getBudgetById(@PathVariable Integer id){
-    	return budgetRequestService.getBudgetById(id);
+    @GetMapping("/projects/{id}")
+    public Optional<Projects> getById(@PathVariable Integer id){
+    	return projectMonitorService.getProjectById(id);
     }
 
-    @DeleteMapping("/budgets/{id}")
-    public void deleteBudget(@PathVariable Integer id)
+    @DeleteMapping("/projects/{id}")
+    public void delete(@PathVariable Integer id)
     {
-        budgetRequestService.deleteBudget(id);
+        projectMonitorService.deleteProject(id);
     }
 
 
